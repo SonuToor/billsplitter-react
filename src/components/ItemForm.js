@@ -19,7 +19,7 @@ export default class ItemForm extends React.Component {
         event.target.quantity.value = ""
         event.target.price.value = ""
 
-        this.props.items(item)
+        this.props.itemList(item)
     }
 
     render() {

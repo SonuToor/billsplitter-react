@@ -31,13 +31,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    
+    let items = this.state.itemList; 
+    let party = this.state.partyList; 
     return (
         <Container>
           <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
           <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
-          {this.state.partySetUp ? <ItemForm items={this.updateItemList}/> : null}
-          {this.state.isItemList ? <ItemsList/> : null}
+          {this.state.partySetUp ? <ItemForm itemList={this.updateItemList}/> : null}
+          {this.state.isItemList ? <ItemsList items={items} party={party}/> : null}
         </Container>
     )
   }
