@@ -1,7 +1,12 @@
 import React from 'react';
 
-import ItemForm from "./components/ItemForm"
-import PartyForm from "./components/PartyForm"
+import { Container } from "react-bootstrap";
+
+import './index.css'
+
+import ItemForm from "./components/ItemForm";
+import ItemsList from "./components/ItemsList";
+import PartyForm from "./components/PartyForm";
 
 export default class App extends React.Component {
   constructor() {
@@ -9,7 +14,9 @@ export default class App extends React.Component {
     this.state = {
       partySize : 0,
       partyList : [],
-      partySetUp : false
+      partySetUp : false,
+      isItemList : false,
+      itemList : []
     }
   }
 
@@ -19,15 +26,19 @@ export default class App extends React.Component {
   updatePartyList = (list) => {
     this.setState({ partyList : [list, ...this.state.partyList], partySetUp : true })
   }
+  updateItemList = (item) => {
+    this.setState({ itemList : [item, ...this.state.itemList], isItemList : true })
+  }
 
   render() {
     
     return (
-      <div>
-        <h1 className="main-title">Billsplitter!</h1>
-        <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
-        {this.state.partySetUp ? <ItemForm /> : null}
-      </div>
+        <Container>
+          <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
+          <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
+          {this.state.partySetUp ? <ItemForm items={this.updateItemList}/> : null}
+          {this.state.isItemList ? <ItemsList/> : null}
+        </Container>
     )
   }
 }
