@@ -7,6 +7,7 @@ import './index.css'
 import ItemForm from "./components/ItemForm";
 import ItemsList from "./components/ItemsList";
 import PartyForm from "./components/PartyForm";
+import TotalsDisplay from "./components/TotalsDisplay";
 
 export default class App extends React.Component {
   constructor() {
@@ -16,7 +17,9 @@ export default class App extends React.Component {
       partyList : [],
       partySetUp : false,
       isItemList : false,
-      itemList : []
+      itemList : [],
+      bill : [],
+      splitBill : false
     }
   }
 
@@ -29,6 +32,10 @@ export default class App extends React.Component {
   updateItemList = (item) => {
     this.setState({ itemList : [item, ...this.state.itemList], isItemList : true })
   }
+  updateBill = (item) => {
+    this.setState({ bill : [item, ...this.state.bill] })
+  }
+  
 
   render() {
     let items = this.state.itemList; 
@@ -39,6 +46,7 @@ export default class App extends React.Component {
           <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
           {this.state.partySetUp ? <ItemForm itemList={this.updateItemList}/> : null}
           {this.state.isItemList ? <ItemsList items={items} party={party}/> : null}
+          {this.state.splitBill ? <TotalsDisplay/> : null}
         </Container>
     )
   }

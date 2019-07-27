@@ -7,7 +7,7 @@ export default class PartyButtons extends React.Component {
         return(
             <ButtonGroup onClick={this.props.handleClick}>
                 {this.props.members[0].map((member, i) =>
-                <Button variant="secondary" key={i}>{member}</Button>
+                <Button variant="outline-secondary" key={i}>{member}</Button>
                 )}
             </ButtonGroup>
         )
