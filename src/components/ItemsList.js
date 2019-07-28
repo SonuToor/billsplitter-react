@@ -6,38 +6,33 @@ import "./ItemsList.css"
 
 import PartyButtons from "./PartyButtons"
 
-
 export default class ItemsList extends React.Component {
-    constructor () {
-        super()
-        this.state = { peopleInvolved : []}
-    }
     // this method returns an object that contains an item and the party members who are involved with said item
     handlePartyButtonClick = (event) => {
         let button = event.target
         let itemEntry = button.parentNode.parentNode.getAttribute("item");
-        let member = event.target.innerHTML
+        let memberButtons = Array.from(button.parentNode.children);
 
+        let involved = []; 
         // toggle botton to show user if the party memeber is selected
         if (button.classList.contains( "btn-outline-secondary")) {
-            button.classList.replace("btn-outline-secondary", "btn-secondary")
+            button.classList.replace("btn-outline-secondary", "btn-secondary")  
         }
         else {
             button.classList.replace("btn-secondary", "btn-outline-secondary")
-        }
-        
-        // TO DO
-        // how should this be handled?
-            // right now if the button is clicked and then unclicked, the member remains in peopleInvolved
-                // when the button is unclicked the member needs to be removed
-            // right now multiple button clicks puts the member in peopleInvolved multiple times
-                // the member should only be put in peopleInvolved once
-        if (button.classList.contains("btn-secondary")) {
-            this.state.peopleInvolved.push(member)
+            console.log("remove member from the item")
         }
 
-        console.log(itemEntry, this.state.peopleInvolved)
-        // let billEntry = { item : itemEntry, involved : [list of people involved]}
+        for (let i = 0; i < memberButtons.length; i++) {
+            let classes = Array.from(memberButtons[i].classList)
+            if (classes.includes("btn-secondary")) {
+                involved.push(memberButtons[i].innerHTML)
+            }
+            
+        }
+        // if i pass this up to App.js, the bill will have multiple entries for the same item
+        let billEntry = { item : itemEntry, involved : involved }
+        console.log(billEntry)
 
     }
 
