@@ -6,6 +6,9 @@ import "./ItemsList.css"
 
 import PartyButtons from "./PartyButtons"
 
+// TO DO
+    // What if user selects 0 people involved for an item
+        // an error needs to be thrown!
 export default class ItemsList extends React.Component {
     // this method returns an object that contains an item and the party members who are involved with said item
     handlePartyButtonClick = (event) => {
@@ -13,27 +16,29 @@ export default class ItemsList extends React.Component {
         let itemEntry = button.parentNode.parentNode.getAttribute("item");
         let memberButtons = Array.from(button.parentNode.children);
 
-        let involved = []; 
         // toggle botton to show user if the party memeber is selected
         if (button.classList.contains( "btn-outline-secondary")) {
             button.classList.replace("btn-outline-secondary", "btn-secondary")  
         }
         else {
             button.classList.replace("btn-secondary", "btn-outline-secondary")
-            console.log("remove member from the item")
         }
 
+        let involved = []; 
         for (let i = 0; i < memberButtons.length; i++) {
             let classes = Array.from(memberButtons[i].classList)
             if (classes.includes("btn-secondary")) {
                 involved.push(memberButtons[i].innerHTML)
             }
-            
         }
-        // if i pass this up to App.js, the bill will have multiple entries for the same item
-        let billEntry = { item : itemEntry, involved : involved }
-        console.log(billEntry)
 
+        this.props.bill(itemEntry, involved)
+    }
+
+    handleBillSplit = (event) => {
+        
+        event.preventDefault(); 
+        this.props.split()
     }
 
     render() {
@@ -49,7 +54,9 @@ export default class ItemsList extends React.Component {
                         {userButtons}
                     </li>)}
                 </ul>
-                <Button variant="secondary" className="billsplit-button">Split my bill!</Button>
+                {/* when this button is clicked what needs to happen? */}
+                    {/* disable or remove other forms? */}
+                <Button variant="secondary" className="billsplit-button" onClick={this.handleBillSplit}>Split my bill!</Button>
             </div>
         )
     }

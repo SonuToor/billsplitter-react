@@ -20,6 +20,8 @@ export default class ItemForm extends React.Component {
         event.target.price.value = ""
 
         this.props.itemList(item)
+
+        // I think it maybe a good idea to disable the PartyForm at this point. 
     }
 
     render() {
