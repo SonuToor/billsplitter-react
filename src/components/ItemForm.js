@@ -9,17 +9,20 @@ export default class ItemForm extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault(); 
 
-
-        let item = {
-            item : event.target.item.value,
+        let itemName = event.target.item.value;
+        let totalCostPerItem = Number(event.target.price.value) * Number(event.target.quantity.value)
+        
+        let itemEntry = {
+            item : itemName,
             price : event.target.price.value,
             quantity : event.target.quantity.value
         }
+        
         event.target.item.value = ""
         event.target.quantity.value = ""
         event.target.price.value = ""
 
-        this.props.itemList(item)
+        this.props.itemList(itemEntry, itemName, totalCostPerItem)
 
         // I think it maybe a good idea to disable the PartyForm at this point. 
     }

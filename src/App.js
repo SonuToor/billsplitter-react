@@ -18,6 +18,7 @@ export default class App extends React.Component {
       partySetUp : false,
       isItemList : false,
       itemList : [],
+      costPerItem : {},
       bill : {},
       splitBill : false
     }
@@ -34,10 +35,14 @@ export default class App extends React.Component {
        partySetUp : true 
       })
   }
-  updateItemList = (item) => {
+  updateItemInfo = (itemEntry, name, totalCost) => {
     this.setState({
-       itemList : [item, ...this.state.itemList], 
-       isItemList : true 
+       itemList : [itemEntry, ...this.state.itemList], 
+       isItemList : true,
+       costPerItem : {
+         ...this.state.costPerItem,
+         [name] : totalCost
+       }
       })
   }
   updateBill = (item, peopleInvolved) => {
@@ -63,9 +68,9 @@ export default class App extends React.Component {
         <Container>
           <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
           <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
-          {this.state.partySetUp ? <ItemForm itemList={this.updateItemList}/> : null}
+          {this.state.partySetUp ? <ItemForm itemList={this.updateItemInfo}/> : null}
           {this.state.isItemList ? <ItemsList items={items} party={party} bill={this.updateBill} split={this.splitBill}/> : null}
-          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList}/> : null}
+          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem}/> : null}
         </Container>
     )
   }
