@@ -13,26 +13,21 @@ export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      partySize : 0,
       partyList : [],
       partySetUp : false,
       isItemList : false,
       itemList : [],
       costPerItem : {},
       bill : {},
-      splitBill : false
+      splitBill : false,
+      totals : null
     }
   }
-
-  updatePartySize = (size) => {
-    this.setState({
-       partySize : size 
-      })
-  }
-  updatePartyList = (list) => {
+  updatePartyList = (list, initialTotals) => {
     this.setState({
        partyList : [list, ...this.state.partyList], 
-       partySetUp : true 
+       partySetUp : true,
+       totals : initialTotals
       })
   }
   updateItemInfo = (itemEntry, name, totalCost) => {
@@ -59,18 +54,28 @@ export default class App extends React.Component {
       splitBill : true
     })
   }
-  
+
+  //TO DO
+  // it is not updating state correctly here 
+  updateTotals = (member, addition) => {
+    this.setState({
+      totals : {
+        ...this.state.totals,
+        [member] : this.state.totals[member] + addition
+      }
+    })
+    console.log(member, addition)
+    console.log(this.state.totals)
+  }
 
   render() {
-    let items = this.state.itemList; 
-    let party = this.state.partyList; 
     return (
         <Container>
           <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
           <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
           {this.state.partySetUp ? <ItemForm itemList={this.updateItemInfo}/> : null}
-          {this.state.isItemList ? <ItemsList items={items} party={party} bill={this.updateBill} split={this.splitBill}/> : null}
-          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem}/> : null}
+          {this.state.isItemList ? <ItemsList items={this.state.itemList} party={this.state.partyList} bill={this.updateBill} split={this.splitBill}/> : null}
+          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem} totals={this.state.totals} update={this.updateTotals}/> : null}
         </Container>
     )
   }

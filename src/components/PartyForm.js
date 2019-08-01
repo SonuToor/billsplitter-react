@@ -15,8 +15,6 @@ export default class PartyForm extends React.Component {
     event.preventDefault();
     let size = event.target[0].value;
     this.setState({ partySize : size })
-    this.props.partySize(size)
-
   }
 
   createPartyMembersForm = () => {
@@ -31,11 +29,18 @@ export default class PartyForm extends React.Component {
 
   handlePartyListSubmit = (event) => {
     let party = []
+    let emptyTotals = {}
     event.preventDefault();
+
     for (let i = 0; i < this.state.partySize; i++) {
       party.push(event.target[i].value)
     }
-    this.props.partyList(party)
+
+    for (let i = 0; i < party.length; i++) {
+      emptyTotals[party[i]] = 0
+    }
+      
+    this.props.partyList(party, emptyTotals)
   }
 
   render() {

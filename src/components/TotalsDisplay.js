@@ -5,26 +5,15 @@ import Table from 'react-bootstrap/Table'
 
 
 export default class TotalsDisplay extends React.Component {
-    constructor () {
-        super ()
-        this.state = {
-            membertotals : {}
-        }
-    }
     componentDidMount = () => {
-        this.props.party[0].forEach(member => {
-            this.setState({
-                membertotals : { [member] : 0 }
-            })
-        });
-
-        //TO DO
-
-        // only apply pricePerPerson to the members who are a part of the array in bill[item]
-
         for (var item in this.props.items) {
             let pricePerPerson = this.props.items[item] / this.props.bill[item].length  
+            for (let i = 0; i < this.props.bill[item].length; i++) {
+                this.props.update(this.props.bill[item][i], pricePerPerson)
+            }
         }
+
+        // console.log(this.props.totals)
     }
 
     render() {
@@ -41,8 +30,10 @@ export default class TotalsDisplay extends React.Component {
                     {this.props.party[0].map((member) => 
                         <tr className={member}>
                             <td className="party-member">{member}</td>
-                            {/* getting the total per member to reflect in state would make it easy to rerender */}
-                            <td className="party-member-total">$0.00</td>
+                            {/* {//TO DO} */}
+                            {/* getting the total per member to reflect in state would make it easy to rerender 
+                            you would be putting inside party-member-total the this.props.total[member]*/}
+                            <td className="party-member-total">${this.props.totals[member]}</td>
                         </tr>
                     )}
                     </tbody>
