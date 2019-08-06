@@ -24,6 +24,7 @@ export default class ItemForm extends React.Component {
 
         this.props.itemList(itemEntry, itemName, totalCostPerItem)
 
+        // TO DO 
         // I think it maybe a good idea to disable the PartyForm at this point. 
     }
 

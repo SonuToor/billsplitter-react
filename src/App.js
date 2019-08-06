@@ -55,17 +55,10 @@ export default class App extends React.Component {
     })
   }
 
-  //TO DO
-  // it is not updating state correctly here 
-  updateTotals = (member, addition) => {
+  updateTotals = (updatedTotals) => {
     this.setState({
-      totals : {
-        ...this.state.totals,
-        [member] : this.state.totals[member] + addition
-      }
+      totals : updatedTotals
     })
-    console.log(member, addition)
-    console.log(this.state.totals)
   }
 
   render() {
