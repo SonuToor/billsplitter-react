@@ -13,6 +13,7 @@ export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
+      begin : true,
       partyList : [],
       partySetUp : false,
       isItemList : false,
@@ -20,7 +21,8 @@ export default class App extends React.Component {
       costPerItem : {},
       bill : {},
       splitBill : false,
-      totals : null
+      totals : null,
+      totalsCopy : null
     }
   }
   updatePartyList = (list, initialTotals) => {
@@ -37,6 +39,10 @@ export default class App extends React.Component {
        costPerItem : {
          ...this.state.costPerItem,
          [name] : totalCost
+       },
+       bill : {
+         ...this.state.bill,
+         [name] : []
        }
       })
   }
@@ -51,24 +57,43 @@ export default class App extends React.Component {
 
   splitBill = () => {
     this.setState({
-      splitBill : true
+      splitBill : true,
+      begin : false,
+      partySetUp : false,
+      isItemList : false,
+      isItemList : false
     })
   }
 
   updateTotals = (updatedTotals) => {
     this.setState({
-      totals : updatedTotals
+      totals : updatedTotals,
+      totalsCopy : updatedTotals
     })
+
+  }
+
+  addTip = (tipPercentage) => {
+    let tip = (tipPercentage / 100) + 1 
+    for (let person in this.state.totals) {
+      let newTotal = (this.state.totalsCopy[person] * tip)
+      this.setState({
+        totals : {
+          ...this.state.totals,
+          [person] : newTotal
+        }
+      })
+    }
   }
 
   render() {
     return (
         <Container>
           <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
-          <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/>
+          {this.state.begin ? <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/> : null}
           {this.state.partySetUp ? <ItemForm itemList={this.updateItemInfo}/> : null}
-          {this.state.isItemList ? <ItemsList items={this.state.itemList} party={this.state.partyList} bill={this.updateBill} split={this.splitBill}/> : null}
-          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem} totals={this.state.totals} update={this.updateTotals}/> : null}
+          {this.state.isItemList ? <ItemsList items={this.state.itemList} party={this.state.partyList} updateBill={this.updateBill} split={this.splitBill} bill={this.state.bill}/> : null}
+          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem} totals={this.state.totals} update={this.updateTotals} tips={this.addTip}/> : null}
         </Container>
     )
   }
