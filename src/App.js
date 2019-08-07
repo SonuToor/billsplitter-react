@@ -86,14 +86,28 @@ export default class App extends React.Component {
     }
   }
 
+  reset = () => {
+    console.log("reset ting")
+    this.setState({
+      begin : true,
+      splitBill : false,
+      partyList : [],
+      itemList : [],
+      costPerItem : {},
+      bill : {},
+      totals : null,
+      totalsCopy : null
+    })
+  }
+
   render() {
     return (
         <Container>
-          <h1 className="main-title" style={{textAlign : "center"}}>Billsplitter!</h1>
+          <h1 className="main-title" style={{textAlign : "center", marginTop : "4%"}}>Billsplitter!</h1>
           {this.state.begin ? <PartyForm partySize={this.updatePartySize} partyList={this.updatePartyList}/> : null}
           {this.state.partySetUp ? <ItemForm itemList={this.updateItemInfo}/> : null}
           {this.state.isItemList ? <ItemsList items={this.state.itemList} party={this.state.partyList} updateBill={this.updateBill} split={this.splitBill} bill={this.state.bill}/> : null}
-          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem} totals={this.state.totals} update={this.updateTotals} tips={this.addTip}/> : null}
+          {this.state.splitBill ? <TotalsDisplay bill={this.state.bill} party={this.state.partyList} items={this.state.costPerItem} totals={this.state.totals} update={this.updateTotals} tips={this.addTip} reset={this.reset}/> : null}
         </Container>
     )
   }

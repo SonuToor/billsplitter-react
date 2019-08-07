@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { CSSTransitionGroup } from 'react-transition-group';
 import Slider from '@material-ui/core/Slider';
 import Table from 'react-bootstrap/Table'
+import { Button } from "react-bootstrap";
 
 
 
@@ -43,26 +45,34 @@ export default class TotalsDisplay extends React.Component {
         ]
         return (
             <div>
-                <Table striped bordered hover variant="dark" style={{marginBottom : "5%", marginTop : "5%"}}>
-                    <thead>
-                        <tr>
-                            <th>Party Member</th>
-                            <th>Total Owed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.props.party[0].map((member) => 
-                        <tr className={member}>
-                            <td className="party-member">{member}</td>
-                            <td className="party-member-total">${Number(this.props.totals[member]).toFixed(2)}</td>
-                        </tr>
-                    )}
-                    </tbody>
-                </Table>
-                <div style={{display : "flex", justifyContent : "space-evenly"}}>
-                    <label style={{fontSize : 22}}>Add a tip?</label>
-                    <Slider style={{width : "60%"}} defaultValue={0} valueLabelDisplay="on" marks={marks} onChangeCommitted={this.handleTips}/>
-                </div>
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={false}
+                transitionLeave={false}>
+                    <Table striped bordered hover variant="dark" style={{marginBottom : "5%", marginTop : "5%"}}>
+                        <thead>
+                            <tr>
+                                <th>Party Member</th>
+                                <th>Total Owed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {this.props.party[0].map((member) => 
+                            <tr className={member}>
+                                <td className="party-member">{member}</td>
+                                <td className="party-member-total">${ (isNaN(this.props.totals[member])) ? 0.00 : Number(this.props.totals[member]).toFixed(2) }</td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </Table>
+                    <div style={{display : "flex", justifyContent : "space-evenly"}}>
+                        <label style={{fontSize : 22}}>Add a tip?</label>
+                        <Slider style={{width : "60%"}} defaultValue={0} valueLabelDisplay="on" marks={marks} onChangeCommitted={this.handleTips}/>
+                    </div>
+                    <Button variant="secondary" type="submit" style={{marginLeft : "35%", width : "30%", marginTop: "5%"}}onClick={this.props.reset}>Restart</Button>
+                </CSSTransitionGroup>
             </div>
         )
     }

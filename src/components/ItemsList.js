@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button } from "react-bootstrap";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import "./ItemsList.css"
 
@@ -21,7 +21,7 @@ export default class ItemsList extends React.Component {
         let itemEntry = button.parentNode.parentNode.getAttribute("item");
         let memberButtons = Array.from(button.parentNode.children);
 
-        // toggle botton to show user if the party memeber is selected
+        // toggle botton to show user if the party member is selected
         if (button.classList.contains( "btn-outline-secondary")) {
             button.classList.replace("btn-outline-secondary", "btn-secondary")  
         }
@@ -63,26 +63,41 @@ export default class ItemsList extends React.Component {
         }
     }
 
-    componentWillUnmount() {
-        console.log("did this fire?")
-      }
-
     render() {
         let userButtons = <PartyButtons members={this.props.party} handleClick={this.handlePartyButtonClick}/>
         return (
             <div>
-                <h2 style={{textAlign : "center"}}>Your Items!</h2>
-                <p style={{textAlign : "center"}}>Select the party members who are paying for each item.</p>
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={false}
+                transitionLeave={false}>
+                    <h2 style={{textAlign : "center"}}>Your Items!</h2>
+                    <p style={{textAlign : "center"}}>Select the party members who are paying for each item.</p>
+                </CSSTransitionGroup>
                 <ul className="items-list">
-                {this.props.items.map((entry) => 
-                    <li className="item-entry" key={entry.item} item={entry.item}>
-                        <span className="item item-name">{entry.item}</span>
-                        <span className="item item-details">  Quantity: {entry.quantity} Price: ${entry.price}</span>
-                        {userButtons}
-                    </li>)}
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}>
+                    {this.props.items.map((entry) => 
+                        <li className="item-entry" key={entry.item} item={entry.item}>
+                            <span className="item item-name">{entry.item}</span>
+                            <span className="item item-details">  Quantity: {entry.quantity} Price: ${entry.price}</span>
+                            {userButtons}
+                        </li>)}
+                </CSSTransitionGroup>
                 </ul>
                 {this.state.error ? <p style={{textAlign : "center", color : "red"}}>Make sure there is at least one member selected per item</p> : null}
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={false}
+                transitionLeave={false}>
                 <Button variant="secondary" className="billsplit-button" onClick={this.handleBillSplit}>Split my bill!</Button>
+                </CSSTransitionGroup>
             </div>
         )
     }

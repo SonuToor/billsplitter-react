@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Form } from "react-bootstrap";
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import "./ItemForm.css"
 
@@ -23,19 +24,24 @@ export default class ItemForm extends React.Component {
         event.target.price.value = ""
 
         this.props.itemList(itemEntry, itemName, totalCostPerItem)
-
-        // TO DO 
-        // I think it maybe a good idea to disable the PartyForm at this point. 
     }
 
     render() {
         return (
-            <Form className="items-input-form" onSubmit={this.handleSubmit}>
-                <input name="item" min="3" required placeholder="Enter the item name"/>
-                <input type="number" name="price" min="1" placeholder="Price" required step="0.01"/>
-                <input type="number" name="quantity" min="1" placeholder="Quantity" required/>
-                <Button variant="secondary" type="submit">Submit</Button>
-            </Form>
+            <CSSTransitionGroup
+            transitionName="example"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnter={false}
+            transitionLeave={true}
+            transitionLeaveTimeout={300}>
+                <Form className="items-input-form" onSubmit={this.handleSubmit}>
+                    <input name="item" min="3" required placeholder="Enter the item name"/>
+                    <input type="number" name="price" min="1" placeholder="Price" required step="0.01"/>
+                    <input type="number" name="quantity" min="1" placeholder="Quantity" required/>
+                    <Button variant="secondary" type="submit">Submit</Button>
+                </Form>
+            </CSSTransitionGroup>
         )
     }
 }
