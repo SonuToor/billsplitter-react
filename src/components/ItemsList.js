@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Button } from "react-bootstrap";
 import { CSSTransitionGroup } from 'react-transition-group';
+import PartyButtons from "./PartyButtons"
 
 import "./ItemsList.css"
-
-import PartyButtons from "./PartyButtons"
 
 
 export default class ItemsList extends React.Component {
@@ -15,24 +14,25 @@ export default class ItemsList extends React.Component {
             error : false
         }
     }
-    // this method returns an object that contains an item and the party members who are involved with said item
+    // this method updates the bill object in app.js, where each entry is the item and the value is an array of people who are involved with that item 
     handlePartyButtonClick = (event) => {
         let button = event.target
         let itemEntry = button.parentNode.parentNode.getAttribute("item");
         let memberButtons = Array.from(button.parentNode.children);
 
-        // toggle botton to show user if the party member is selected
-        if (button.classList.contains( "btn-outline-secondary")) {
-            button.classList.replace("btn-outline-secondary", "btn-secondary")  
+        // toggles the button that was clicked, between selected and unselected
+        if (button.classList.contains( "btn-outline-light")) {
+            button.classList.replace("btn-outline-light", "btn-light")  
         }
         else {
-            button.classList.replace("btn-secondary", "btn-outline-secondary")
+            button.classList.replace("btn-light", "btn-outline-light")
         }
 
         let involved = []; 
+        // if the button is currently selected, add that member to the list of involved members for that item 
         for (let i = 0; i < memberButtons.length; i++) {
             let classes = Array.from(memberButtons[i].classList)
-            if (classes.includes("btn-secondary")) {
+            if (classes.includes("btn-light")) {
                 involved.push(memberButtons[i].innerHTML)
             }
         }
@@ -40,9 +40,11 @@ export default class ItemsList extends React.Component {
         this.props.updateBill(itemEntry, involved)
     }
 
+    // once clicked this button hides the previous forms and displays the totals per member in a table 
     handleBillSplit = (event) => {
         event.preventDefault(); 
 
+        // this logic makes certain that each item has atleast one member paying, it displays an otherwise
         let empties = 0; 
         
         for (var item in this.props.bill) {
@@ -96,7 +98,7 @@ export default class ItemsList extends React.Component {
                 transitionAppearTimeout={500}
                 transitionEnter={false}
                 transitionLeave={false}>
-                <Button variant="secondary" className="billsplit-button" onClick={this.handleBillSplit}>Split my bill!</Button>
+                <Button variant="light" className="billsplit-button" onClick={this.handleBillSplit}>Split my bill!</Button>
                 </CSSTransitionGroup>
             </div>
         )

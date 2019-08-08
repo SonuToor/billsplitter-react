@@ -19,16 +19,18 @@ export default class PartyForm extends React.Component {
     this.setState({ partySize : size })
   }
 
+  // create text inputs for the party member names based on the party size
   createPartyMembersForm = () => {
     let output = []
 
     for (let i = 0; i < this.state.partySize - 2; i ++) {
       output.push(<input key={i} className="party-member" placeholder="Enter name" required/>)
     }
-    output.push(<Button variant="secondary" type="submit" key={this.state.partySize + 1}>Submit</Button>)
+    output.push(<Button variant="light" type="submit" key={this.state.partySize + 1}>Submit</Button>)
     return output
   }
 
+  // provide app.js with an array of party members and the initial totals for each member
   handlePartyListSubmit = (event) => {
     let party = []
     let emptyTotals = {}
@@ -52,7 +54,7 @@ export default class PartyForm extends React.Component {
             <Form.Group>
               <Form.Label>How many people are in your party?</Form.Label>
               <input className="size-input" type="number" min="2" required placeholder="2"/>
-              <Button variant="secondary" type="submit" size="sm">Submit</Button>
+              <Button variant="light" type="submit" size="sm">Submit</Button>
             </Form.Group>
           </Form>
           <Form className="party-members-form" onSubmit={this.handlePartyListSubmit}>

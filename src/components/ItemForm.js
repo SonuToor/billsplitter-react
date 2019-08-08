@@ -7,6 +7,8 @@ import "./ItemForm.css"
 
 export default class ItemForm extends React.Component {
 
+    // for each item that's submitted to the form, create an object in the items list array in app.js which has the name, price and quantity of the submitted item
+    // also adds an entry per item to the costPerItem object in app.js which stores the total cost of the item 
     handleSubmit = (event) => {
         event.preventDefault(); 
 
@@ -39,7 +41,7 @@ export default class ItemForm extends React.Component {
                     <input name="item" min="3" required placeholder="Enter the item name"/>
                     <input type="number" name="price" min="1" placeholder="Price" required step="0.01"/>
                     <input type="number" name="quantity" min="1" placeholder="Quantity" required/>
-                    <Button variant="secondary" type="submit">Submit</Button>
+                    <Button variant="light" type="submit">Submit</Button>
                 </Form>
             </CSSTransitionGroup>
         )

@@ -8,8 +8,11 @@ import { Button } from "react-bootstrap";
 
 
 export default class TotalsDisplay extends React.Component {
+    // update the totals object in app.js 
     componentDidMount = () => {
         let totals = {}
+        // get the cost per person for an item (total cost of item / number of peopled involved)
+        // apply that cost to the totals for the members who are involved in that item 
         for (var item in this.props.items) {
             let pricePerPerson = (this.props.items[item] / this.props.bill[item].length)
             for (let i = 0; i < this.props.bill[item].length; i++) {
@@ -29,20 +32,6 @@ export default class TotalsDisplay extends React.Component {
     }
 
     render() {
-        const marks = [
-            {
-                value: 0,
-                label: '0%',
-            },
-            {
-                value: 50,
-                label: '50%'
-            },
-            {
-                value: 100,
-                label: '100%'
-            }
-        ]
         return (
             <div>
                 <CSSTransitionGroup
@@ -68,10 +57,10 @@ export default class TotalsDisplay extends React.Component {
                         </tbody>
                     </Table>
                     <div style={{display : "flex", justifyContent : "space-evenly"}}>
-                        <label style={{fontSize : 22}}>Add a tip?</label>
-                        <Slider style={{width : "60%"}} defaultValue={0} valueLabelDisplay="on" marks={marks} onChangeCommitted={this.handleTips}/>
+                        <label style={{fontSize : 22}}>Add a tip? (%)</label>
+                        <Slider style={{width : "60%"}} defaultValue={0} valueLabelDisplay="on" onChangeCommitted={this.handleTips}/>
                     </div>
-                    <Button variant="secondary" type="submit" style={{marginLeft : "35%", width : "30%", marginTop: "5%"}}onClick={this.props.reset}>Restart</Button>
+                    <Button variant="light" type="submit" style={{marginLeft : "35%", width : "30%", marginTop: "5%"}}onClick={this.props.reset}>Restart</Button>
                 </CSSTransitionGroup>
             </div>
         )

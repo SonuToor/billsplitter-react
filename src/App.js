@@ -87,7 +87,6 @@ export default class App extends React.Component {
   }
 
   reset = () => {
-    console.log("reset ting")
     this.setState({
       begin : true,
       splitBill : false,
