@@ -1,0 +1,12 @@
+.tip {
+    /* style={{display : "flex", justifyContent : "space-evenly"}} */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .tip {
+        margin-top: 20%;
+    }
+}

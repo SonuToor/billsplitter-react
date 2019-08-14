@@ -4,6 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import Slider from '@material-ui/core/Slider';
 import Table from 'react-bootstrap/Table'
 import { Button } from "react-bootstrap";
+import "./TotalsDisplay.css"
 
 
 
@@ -40,7 +41,8 @@ export default class TotalsDisplay extends React.Component {
                 transitionAppearTimeout={500}
                 transitionEnter={false}
                 transitionLeave={false}>
-                    <Table striped bordered hover variant="dark" style={{marginBottom : "5%", marginTop : "5%"}}>
+                    <Table striped hover variant="dark" className="totals-table" style={{
+                        marginBottom : "5%", marginTop : "5%", opacity: "0.9", backgroundColor: "rgb(39, 62, 75)", borderRadius: "25px"}}>
                         <thead>
                             <tr>
                                 <th>Party Member</th>
@@ -56,7 +58,7 @@ export default class TotalsDisplay extends React.Component {
                         )}
                         </tbody>
                     </Table>
-                    <div style={{display : "flex", justifyContent : "space-evenly"}}>
+                    <div className="tip">
                         <label style={{fontSize : 22}}>Add a tip? (%)</label>
                         <Slider style={{width : "60%"}} defaultValue={0} valueLabelDisplay="on" onChangeCommitted={this.handleTips}/>
                     </div>
