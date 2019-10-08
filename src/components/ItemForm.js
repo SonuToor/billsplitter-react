@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { Button, Form } from "react-bootstrap";
 import { CSSTransitionGroup } from 'react-transition-group';
-
-import "./ItemForm.css"
 
 export default class ItemForm extends React.Component {
 

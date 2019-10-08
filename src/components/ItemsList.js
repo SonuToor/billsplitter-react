@@ -4,8 +4,6 @@ import { Button } from "react-bootstrap";
 import { CSSTransitionGroup } from 'react-transition-group';
 import PartyButtons from "./PartyButtons"
 
-import "./ItemsList.css"
-
 
 export default class ItemsList extends React.Component {
     constructor () {
