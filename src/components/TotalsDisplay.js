@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { CSSTransitionGroup } from 'react-transition-group';
 import Slider from '@material-ui/core/Slider';
 import Table from 'react-bootstrap/Table'

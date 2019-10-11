@@ -21,6 +21,9 @@ export default class App extends React.Component {
       totalsCopy : null
     }
   }
+
+  // store the names of the different members of the partipants in the party
+  // setting partySetUp to true, means that there is a party set up and the items form can be rendered
   updatePartyList = (list, initialTotals) => {
     this.setState({
        partyList : [list, ...this.state.partyList], 
@@ -28,6 +31,10 @@ export default class App extends React.Component {
        totals : initialTotals
       })
   }
+
+  // store each item in a list, once itemList is set true, the user now has the option to split the bill or continue adding items
+  // store the costPerItem for each item that is inputted
+  // add the item to the bill, the bill is an object that has an item name with an array of the participants who partook in the item 
   updateItemInfo = (itemEntry, name, totalCost) => {
     this.setState({
        itemList : [itemEntry, ...this.state.itemList], 
@@ -42,6 +49,7 @@ export default class App extends React.Component {
        }
       })
   }
+  // update the bill based on who is currently selected for the item 
   updateBill = (item, peopleInvolved) => {
     this.setState({
             bill : {
@@ -51,6 +59,7 @@ export default class App extends React.Component {
           })
   }
 
+  // after the split bill button is clicked, now render the totals table, while removing the previous forms from the DOM
   splitBill = () => {
     this.setState({
       splitBill : true,
@@ -61,6 +70,7 @@ export default class App extends React.Component {
     })
   }
 
+  // calculate the totals per each participant
   updateTotals = (updatedTotals) => {
     this.setState({
       totals : updatedTotals,
@@ -82,6 +92,7 @@ export default class App extends React.Component {
     }
   }
 
+  // if the user decides to restart, empty whatever is stored in state, and rerender the page to it's initial state
   reset = () => {
     this.setState({
       begin : true,

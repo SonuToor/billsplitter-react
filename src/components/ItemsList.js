@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Button } from "react-bootstrap";
 import { CSSTransitionGroup } from 'react-transition-group';
 import PartyButtons from "./PartyButtons"
@@ -42,7 +41,7 @@ export default class ItemsList extends React.Component {
     handleBillSplit = (event) => {
         event.preventDefault(); 
 
-        // this logic makes certain that each item has atleast one member paying, it displays an otherwise
+        // this logic makes certain that each item has atleast one member paying, it displays an error otherwise
         let empties = 0; 
         
         for (var item in this.props.bill) {
