@@ -15,4 +15,4 @@ In the project directory:
 2. npm / yarn start
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Billsplitter is also available live at [https://billsplitter.netlify.com/](http://localhost:3000) 
+Billsplitter is also available live at [https://billsplitter.netlify.com/](https://billsplitter.netlify.com/) 
