@@ -66,7 +66,6 @@ export default class App extends React.Component {
       begin : false,
       partySetUp : false,
       isItemList : false,
-      isItemList : false
     })
   }
 
